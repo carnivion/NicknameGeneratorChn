@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>NicknameGeneratorChn</title>
+	<style>
+		html, body { margin: 0; height: 100%; }
+		body { background: aliceblue; display: flex; justify-content: center; align-items: center; }
+		form { font-size: xxx-large; user-select: none; }
+		input { font-size: xxx-large; text-align: center; }
+		.icon { vertical-align: middle; }
+		.btn { cursor: pointer; }
+	</style>
+	<script type="module">
+		import { Loader } from "./lib/Loader.js"
+		let nouns, adjs
+		let ll1 = (e) => {
+			nouns = JSON.parse(e.detail.content)
+		}
+		let ll2 = (e) => {
+			adjs = JSON.parse(e.detail.content)
+		}
+		let l1 = new Loader()
+		l1.addEventListener('complete', ll1)
+		l1.load('noun.json')
+		let l2 = new Loader()
+		l2.addEventListener('complete', ll2)
+		l2.load('adjective.json')
+		document.getElementById('btn').onclick = () => {
+			document.getElementById('output').value = adjs[Math.floor(Math.random()*adjs.length)]
+			document.getElementById('output').value += '的'
+			document.getElementById('output').value += nouns[Math.floor(Math.random()*nouns.length)]
+		}
+	</script>
+</head>
+<body>
+<form>
+	<input type="text" id="output" aria-label="." contenteditable="false">
+	<a class="btn icon" id="btn"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.001 7.001 0 0 1 14.95 7.16a.75.75 0 1 1-1.49.178A5.501 5.501 0 0 0 8 2.5zM1.705 8.005a.75.75 0 0 1 .834.656a5.501 5.501 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.001 7.001 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834z" fill="#626262"/></svg></a>
+</form>
+</body>
+</html>
